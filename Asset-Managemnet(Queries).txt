@@ -1,0 +1,65 @@
+create database asset_management;
+
+create table Login(
+LoginId   int identity(1,1) not null primary key,
+UserName  varchar(20) not null,
+Password  varchar(20) not null,
+UserType  int not null,
+constraint login_fk foreign key(UserType) references Roles(RoleId)
+)
+
+create table Roles(
+RoleId  int identity(1,1) not null primary key,
+RoleType  varchar(20))
+
+create table UserRegistration(
+UserId  int identity(1,1) not null primary key,
+FirstName varchar(20),
+LastName  varchar(20),
+Age    varchar(20),
+Gender varchar (9),
+Address varchar(20),
+PhoneNumber  varchar(10),
+LoginId  int not null,
+IsActive bit,
+constraint fk_user foreign key(LoginId) references Login(LoginId),
+check (GENDER in ('Male', 'Female'))
+);
+
+create table AssetType(
+AssetId  int identity(1,1) not null primary key,
+AssetName varchar(20));
+
+create table AssetDefinition(
+AdId   int identity(1,1) not null primary key,
+AdName varchar(20),
+AdTypeId int not null,
+AdClass  varchar(20),
+Constraint fk_atid foreign key(AdTypeId) references AssetType(AssetId)
+);
+
+create table Vendor(
+VId int primary key not null identity(1,1),
+VdName varchar(20),
+VdType  varchar(20),
+VdTypeId  int,
+VdFrom  Date,
+VdTo Date,
+VdAddress varchar(200),
+Constraint fk_vartype foreign key(VdTypeId) references AssetType(AssetId)
+)
+
+create table PurchaseOrder(
+PdId  int identity(1,1) primary key not null,
+PdOrder  varchar(20),
+PdAdId  int,
+PdTypeId  int,
+PdQty int,
+PdVendorId  int,
+PdDate  date,
+PdDDate date,
+PdStatus varchar(20),
+constraint fk_ad_id2 foreign key(PdAdId) references AssetDefinition(AdId),
+constraint fk_pus_id foreign key(PdTypeId) references AssetType(AssetId),
+constraint fk_vd_id foreign key(PdVendorId) references Vendor(VId)
+)
