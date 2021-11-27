@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "asset-management"
+    }
+  },
+  "defaultProject": "asset-management",
+  "cli": {
+    "analytics": "98d9b38c-2bf6-462d-9bf1-88fcabee44e0"
+  }
 }
