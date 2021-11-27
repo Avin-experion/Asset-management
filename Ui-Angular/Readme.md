@@ -1,0 +1,1 @@
+Angular of asset management
